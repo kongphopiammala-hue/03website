@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Primal Haven Wiki & Database | ไพรวัลย์ บรรพกาล: วิถีชีวิตยุคหิน</title>
+  <meta name="description" content="คู่มือและฐานข้อมูลเกมแนวฟาร์มและใช้ชีวิตในโลกดึกดำบรรพ์ รวบรวมข้อมูลพืชพันธุ์ สัตว์โบราณ การคราฟต์ ชาวเผ่า อาหาร และแผนที่">
+  
+  <!-- Google Fonts: Kanit & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand" id="brand-home-btn" title="กลับหน้าแรก">
+        <div class="brand-icon">🔥</div>
+        <div class="brand-title">
+          <h1>ไพรวัลย์ บรรพกาล</h1>
+          <span>Primal Haven Database & Wiki</span>
+        </div>
+      </div>
+
+      <!-- Quick Search Bar -->
+      <div class="search-bar-wrapper">
+        <span class="search-icon-placeholder">🔍</span>
+        <input type="text" id="global-search" class="search-input" placeholder="ค้นหาไอเทม, สัตว์, NPC, สูตรคราฟต์..." autocomplete="off">
+        <span class="search-shortcut">/</span>
+      </div>
+
+      <!-- Header Action Buttons -->
+      <div class="header-actions">
+        <button id="theme-toggle-btn" class="btn-icon" title="สลับโหมดมืด/สว่าง">
+          <span id="theme-icon">🌙</span>
+        </button>
+        <button id="favorites-toggle-btn" class="btn-icon" title="รายการที่บันทึกไว้">
+          <span>⭐</span>
+          <span id="fav-counter" class="badge-count" style="display: none;">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    
+    <!-- Hero Banner -->
+    <section class="hero-section">
+      <div class="hero-banner">
+        <div class="hero-text">
+          <span class="hero-badge-tag">🦕 PRIMAL LIFE SIMULATOR DATABASE</span>
+          <h2>คู่มือผู้รอดชีวิตแห่งโลกดึกดำบรรพ์</h2>
+          <p>
+            เจาะลึกระบบเกษตรกรรมยุคหิน การฝึกสัตว์ดึกดำบรรพ์ให้เชื่อง สูตรอาหารเพิ่มพลัง 
+            และผูกมิตรกับชนเผ่าโบราณเพื่อสร้างอารยธรรมที่รุ่งเรือง
+          </p>
+          <div class="quick-stats-row">
+            <div class="stat-chip">🌾 พืชพันธุ์: <strong id="stat-crops">8</strong> ชนิด</div>
+            <div class="stat-chip">🦣 สัตว์โบราณ: <strong id="stat-animals">5</strong> ชนิด</div>
+            <div class="stat-chip">🪓 สิ่งประดิษฐ์: <strong id="stat-tools">6</strong> รายการ</div>
+            <div class="stat-chip">🏕️ ชาวเผ่า: <strong id="stat-npcs">4</strong> ท่าน</div>
+            <div class="stat-chip">🍲 อาหาร: <strong id="stat-recipes">4</strong> สูตร</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs-wrapper">
+      <div class="nav-tabs" id="category-tabs">
+        <button class="tab-btn active" data-category="crops">
+          <span>🌾</span> พืชพันธุ์ & การเกษตร
+        </button>
+        <button class="tab-btn" data-category="animals">
+          <span>🦣</span> สัตว์ดึกดำบรรพ์ & การฝึก
+        </button>
+        <button class="tab-btn" data-category="crafting">
+          <span>🪓</span> เครื่องมือ & การคราฟต์
+        </button>
+        <button class="tab-btn" data-category="villagers">
+          <span>🏕️</span> ชนเผ่า & NPC
+        </button>
+        <button class="tab-btn" data-category="recipes">
+          <span>🍲</span> อาหาร & บัฟพลัง
+        </button>
+        <button class="tab-btn" data-category="map">
+          <span>🗺️</span> แผนที่ & จุดเก็บเกี่ยว
+        </button>
+        <button class="tab-btn" data-category="calculator">
+          <span>🧮</span> คำนวณผลผลิต
+        </button>
+        <button class="tab-btn" data-category="gift-matcher">
+          <span>🎁</span> ค้นหาของขวัญ NPC
+        </button>
+      </div>
+    </nav>
+
+    <!-- Filter & Sort Toolbar (for grid items) -->
+    <section class="filter-toolbar" id="filter-controls">
+      <div class="filter-group" id="season-filters">
+        <span class="filter-label">ฤดูกาล:</span>
+        <button class="chip-btn active" data-season="all">🌍 ทั้งหมด</button>
+        <button class="chip-btn" data-season="spring">🌱 ฤดูใบไม้ผลิ</button>
+        <button class="chip-btn" data-season="summer">☀️ ฤดูร้อน</button>
+        <button class="chip-btn" data-season="autumn">🍂 ฤดูใบไม้ร่วง</button>
+        <button class="chip-btn" data-season="winter">❄️ ฤดูหนาว</button>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label" id="results-count">พบ 8 รายการ</span>
+        <select id="sort-order" class="sort-select">
+          <option value="default">เรียงตาม: ค่าเริ่มต้น</option>
+          <option value="name-asc">ชื่อ (ก-ฮ / A-Z)</option>
+          <option value="price-desc">ราคาขายสูงสุด</option>
+          <option value="days-asc">ระยะเวลาโตสั้นที่สุด</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <div class="cards-grid" id="items-grid">
+      <!-- Items dynamically populated via JavaScript -->
+    </div>
+
+    <!-- Section: Crop Harvest Calculator (Hidden by default) -->
+    <section class="tool-section" id="section-calculator" style="display: none;">
+      <div class="tool-header">
+        <h3>🧮 เครื่องคำนวณผลผลิตและกำไรจากการเพาะปลูก (Crop Profit Calculator)</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          วางแผนตารางเพาะปลูกของคุณเพื่อคำนวณต้นทุน กำไรสุทธิ และวันเก็บเกี่ยวตลอดทั้งฤดูกาล (1 ฤดู = 28 วัน)
+        </p>
+      </div>
+
+      <div class="tool-grid">
+        <div class="calc-inputs-card">
+          <div class="form-group">
+            <label for="calc-crop-select">เลือกพืชพันธุ์ที่ต้องการปลูก:</label>
+            <select id="calc-crop-select" class="form-control">
+              <!-- Populated by JS -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="calc-plot-count">จำนวนแปลงที่ปลูก (Plots):</label>
+            <input type="number" id="calc-plot-count" class="form-control" value="12" min="1" max="500">
+          </div>
+
+          <div class="form-group">
+            <label for="calc-start-day">เริ่มปลูกวันที่ (ของฤดูกาล 1-28):</label>
+            <input type="number" id="calc-start-day" class="form-control" value="1" min="1" max="28">
+          </div>
+        </div>
+
+        <div class="calc-results-card">
+          <h4 style="color: var(--primary); margin-bottom: 12px; font-size: 1.1rem;">📊 สรุปผลการประเมิน</h4>
+          <div class="result-row">
+            <span>ระยะเวลาเติบโตต่อรอบ:</span>
+            <strong id="res-growth-days">4 วัน</strong>
+          </div>
+          <div class="result-row">
+            <span>เก็บเกี่ยวได้ซ้ำไหม:</span>
+            <strong id="res-regrow-info">ไม่ได้ (ปลูกใหม่ทุกรอบ)</strong>
+          </div>
+          <div class="result-row">
+            <span>จำนวนรอบที่เก็บเกี่ยวได้ทันในฤดู:</span>
+            <strong id="res-harvest-count">6 รอบ</strong>
+          </div>
+          <div class="result-row">
+            <span>ต้นทุนค่าเมล็ดทั้งหมด:</span>
+            <strong id="res-total-cost" style="color: #ef4444;">180 หินแลกเปลี่ยน</strong>
+          </div>
+          <div class="result-row">
+            <span>รายรับรวมจากการขาย:</span>
+            <strong id="res-total-revenue">2,880 หินแลกเปลี่ยน</strong>
+          </div>
+          <div class="result-row">
+            <span>กำไรสุทธิโดยประมาณ:</span>
+            <span class="result-highlight" id="res-net-profit">+2,700 หินแลกเปลี่ยน</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: NPC Gift Finder (Hidden by default) -->
+    <section class="tool-section" id="section-gift-matcher" style="display: none;">
+      <div class="tool-header">
+        <h3>🎁 ตัวช่วยค้นหาของขวัญที่ชาวเผ่าชื่นชอบ (NPC Gift Matcher)</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          เลือกไอเทมที่คุณมีในกระเป๋า เพื่อดูว่ามีชาวเผ่าคนไหนที่ชื่นชอบหรือเกลียดไอเทมชิ้นนี้บ้าง
+        </p>
+      </div>
+
+      <div class="form-group" style="max-width: 450px; margin-bottom: 24px;">
+        <label for="gift-item-select">เลือกไอเทมของขวัญ:</label>
+        <select id="gift-item-select" class="form-control">
+          <!-- Populated by JS -->
+        </select>
+      </div>
+
+      <div id="gift-matcher-results" class="cards-grid">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- Section: World Map & Foraging (Hidden by default) -->
+    <section class="tool-section" id="section-map" style="display: none;">
+      <div class="tool-header">
+        <h3>🗺️ แผนที่ดินแดนบรรพกาล & จุดเก็บเกี่ยวทรัพยากร (Primal World Map)</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          คลิกเลือกดินแดนในแผนผังเพื่อดูระดับความยาก ทรัพยากรเด่น และชาวเผ่า/สิ่งมีชีวิตที่อาศัยอยู่
+        </p>
+      </div>
+
+      <div class="map-container">
+        <!-- Visual Schematic Map -->
+        <div class="map-visual-box">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.8rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px;">⬆ ทิศเหนือ (เขตหนาวเย็น)</span>
+            <span style="font-size: 0.8rem; background: rgba(0,0,0,0.4); padding: 4px 8px; border-radius: 4px; color: #f59e0b;">🧭 แผนผังหนังสัตว์</span>
+          </div>
+
+          <div style="display: flex; justify-content: center; margin: 15px 0;">
+            <div class="map-zone-node" data-zone-id="zone-tundra">
+              <span>🏔️</span> ทุ่งหิมะทุนดราแมมมอธ
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-around; align-items: center; margin: 15px 0;">
+            <div class="map-zone-node" data-zone-id="zone-caves">
+              <span>🕳️</span> ถ้ำหินย้อยโบราณ
+            </div>
+            
+            <div class="map-zone-node active" data-zone-id="zone-village">
+              <span>🏕️</span> หมู่บ้านชนเผ่าประกายไฟ
+            </div>
+
+            <div class="map-zone-node" data-zone-id="zone-jungle">
+              <span>🌴</span> ป่าดงดิบใบเฟิร์นยักษ์
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: center; margin: 15px 0;">
+            <div class="map-zone-node" data-zone-id="zone-beach">
+              <span>🏖️</span> หาดเปลือกหอยและแนวปะการัง
+            </div>
+          </div>
+
+          <div style="text-align: right; font-size: 0.8rem; color: #9ca3af;">
+            ⬇ ทิศใต้ (ทะเลอบอุ่น)
+          </div>
+        </div>
+
+        <!-- Zone Details Card -->
+        <div class="zone-details-card" id="zone-details-container">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Detail Modal Dialog -->
+  <div class="modal-overlay" id="detail-modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" id="modal-close-btn" title="ปิดหน้าต่าง">✕</button>
+      <div class="modal-header" id="modal-header-content">
+        <!-- Dynamic header -->
+      </div>
+      <div class="modal-body" id="modal-body-content">
+        <!-- Dynamic content -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Favorites Slide-out Drawer -->
+  <aside class="favorites-drawer" id="favorites-drawer">
+    <div class="drawer-header">
+      <h3 style="font-size: 1.15rem; color: var(--primary); display: flex; align-items: center; gap: 8px;">
+        ⭐ รายการที่บันทึกไว้
+      </h3>
+      <button id="close-drawer-btn" class="btn-icon" style="width: 32px; height: 32px;">✕</button>
+    </div>
+    <div class="fav-items-list" id="fav-items-container">
+      <p style="color: var(--text-dim); text-align: center; margin-top: 40px;">ยังไม่มีไอเทมที่บันทึกไว้<br>กดไอคอนรูปดาว ⭐ บนการ์ดเพื่อบันทึก</p>
+    </div>
+  </aside>
+
+  <!-- Toast Notification -->
+  <div class="toast-notice" id="toast-notification">
+    <span id="toast-message">บันทึกสำเร็จ</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p><strong>ไพรวัลย์ บรรพกาล: วิถีชีวิตยุคหิน (Primal Haven)</strong></p>
+        <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 4px;">
+          คลังข้อมูลแฟนเมดเพื่อผู้เล่นทุกคน | ข้อมูลอัปเดตเวอร์ชัน Early Access 2026
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="#brand-home-btn" id="footer-back-to-top">⬆ กลับขึ้นด้านบน</a>
+        <a href="javascript:void(0)" onclick="alert('เกมจำลองการใช้ชีวิตและทำฟาร์มในยุคหินโบราณ พัฒนาขึ้นเพื่อความสนุกสนาน!')">เกี่ยวกับเกม</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
